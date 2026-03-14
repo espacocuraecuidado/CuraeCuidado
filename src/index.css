@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 340 30% 97%;
+    --foreground: 340 40% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 340 40% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 340 40% 15%;
+
+    --primary: 340 82% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 280 40% 92%;
+    --secondary-foreground: 280 40% 30%;
+
+    --muted: 340 20% 94%;
+    --muted-foreground: 340 15% 50%;
+
+    --accent: 20 90% 65%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 340 25% 90%;
+    --input: 340 25% 90%;
+    --ring: 340 82% 55%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --rose: 350 80% 60%;
+    --rose-light: 350 80% 92%;
+    --coral: 12 85% 62%;
+    --coral-light: 12 85% 92%;
+    --lavender: 270 50% 70%;
+    --lavender-light: 270 50% 93%;
+    --peach: 25 90% 75%;
+    --peach-light: 25 90% 94%;
+    --mint: 160 40% 55%;
+    --mint-light: 160 40% 92%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(340, 82%, 55%), hsl(350, 80%, 60%), hsl(12, 85%, 62%));
+    --gradient-card: linear-gradient(145deg, hsl(0, 0%, 100%), hsl(340, 30%, 97%));
+    --gradient-accent: linear-gradient(135deg, hsl(270, 50%, 70%), hsl(340, 82%, 55%));
+    --shadow-soft: 0 4px 20px -4px hsl(340 82% 55% / 0.15);
+    --shadow-card: 0 2px 12px -2px hsl(340 40% 15% / 0.08);
+    --shadow-hover: 0 8px 30px -6px hsl(340 82% 55% / 0.25);
+
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Nunito', sans-serif;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 340 40% 15%;
+    --sidebar-primary: 340 82% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 340 20% 94%;
+    --sidebar-accent-foreground: 340 40% 15%;
+    --sidebar-border: 340 25% 90%;
+    --sidebar-ring: 340 82% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  .text-gradient-hero {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+  .bg-gradient-card {
+    background: var(--gradient-card);
+  }
+  .bg-gradient-accent {
+    background: var(--gradient-accent);
+  }
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  .shadow-hover-lift {
+    box-shadow: var(--shadow-hover);
+  }
+}
