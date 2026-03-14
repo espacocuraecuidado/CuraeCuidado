@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    allowedHosts: "all", // Esta linha libera o acesso pelo túnel
     hmr: {
       overlay: false,
     },
