@@ -5,12 +5,11 @@ import CartSidebar, { type CartItem } from "@/components/CartSidebar";
 import CarouselSection from "@/components/CarouselSection";
 import ProductCard from "@/components/ProductCard";
 import TestimonialCard from "@/components/TestimonialCard";
-import ProfessionalCard from "@/components/ProfessionalCard";
-import ProductDetailModal from "@/components/ProductDetailModal";
 import ProfessionalsCarousel from "@/components/ProfessionalsCarousel";
+import ProductDetailModal from "@/components/ProductDetailModal";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Footer from "@/components/Footer";
-import { testimonials, professionalAds, categoryNames, type Product } from "@/data/mockData";
+import { testimonials, categoryNames, type Product } from "@/data/mockData";
 import { supabase } from "@/integrations/supabase/client";
 import heroBaby from "@/assets/hero-baby.jpg";
 import { motion } from "framer-motion";
@@ -32,25 +31,29 @@ const Index = () => {
       const { data, error } = await supabase
         .from("products")
         .select("*")
-        .eq("is_active", true)
-        .order("createdat", { ascending: false });
+        .order("created_at", { ascending: false });
 
-      if (!error && data) {
-        const mapped: Product[] = data.map((p: any) => ({
-          id: p.id,
-          name: p.name,
-          description: p.description || "",
-          price: Number(p.price),
-          image: p.imageurl || "https://placehold.co/300x300?text=Produto",
-          category: p.category_id || "geral",
-          stock: p.stock,
-          isFeatured: p.isfeatured,
-          rating: p.rating || 0,
-          reviewCount: p.reviewcount || 0,
-        }));
-        setFeaturedProducts(mapped.filter((p) => p.isFeatured));
-        setAllProducts(mapped.filter((p) => !p.isFeatured));
+      if (error) {
+        console.error("Erro ao buscar produtos:", error.message);
+        setLoadingProducts(false);
+        return;
       }
+
+      const mapped: Product[] = (data ?? []).map((p: any) => ({
+        id: p.id,
+        name: p.name,
+        description: p.description || "",
+        price: Number(p.price),
+        image: p.image_url || p.imageurl || "https://placehold.co/300x300?text=Produto",
+        category: p.category_id || "geral",
+        stock: p.stock ?? 0,
+        isFeatured: p.is_featured ?? p.isfeatured ?? false,
+        rating: p.rating || 0,
+        reviewCount: p.review_count ?? p.reviewcount ?? 0,
+      }));
+
+      setFeaturedProducts(mapped.filter((p) => p.isFeatured));
+      setAllProducts(mapped.filter((p) => !p.isFeatured));
       setLoadingProducts(false);
     };
     fetchProducts();
