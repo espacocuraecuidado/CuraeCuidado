@@ -41,12 +41,12 @@ const Index = () => {
           name: p.name,
           description: p.description || "",
           price: Number(p.price),
-          image: p.image_url || "https://placehold.co/300x300?text=Produto",
+          image: p.imageurl || "https://placehold.co/300x300?text=Produto",
           category: p.category_id || "geral",
           stock: p.stock,
-          isFeatured: p.is_featured,
+          isFeatured: p.isfeatured,
           rating: p.rating || 0,
-          reviewCount: p.review_count || 0,
+          reviewCount: p.reviewcount || 0,
         }));
         setFeaturedProducts(mapped.filter((p) => p.isFeatured));
         setAllProducts(mapped.filter((p) => !p.isFeatured));
