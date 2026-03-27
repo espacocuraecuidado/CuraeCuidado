@@ -33,7 +33,7 @@ const Index = () => {
         .from("products")
         .select("*")
         .eq("is_active", true)
-        .order("created_at", { ascending: false });
+        .order("createdat", { ascending: false });
 
       if (!error && data) {
         const mapped: Product[] = data.map((p: any) => ({
