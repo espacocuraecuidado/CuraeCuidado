@@ -7,6 +7,7 @@ import ProductCard from "@/components/ProductCard";
 import TestimonialCard from "@/components/TestimonialCard";
 import ProfessionalCard from "@/components/ProfessionalCard";
 import ProductDetailModal from "@/components/ProductDetailModal";
+import ProfessionalsCarousel from "@/components/ProfessionalsCarousel";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Footer from "@/components/Footer";
 import { testimonials, professionalAds, categoryNames, type Product } from "@/data/mockData";
