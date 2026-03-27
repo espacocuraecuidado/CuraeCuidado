@@ -15,7 +15,6 @@ import ProfessionalsPage from "./pages/Professionals";
 import AdminLayout from "./layouts/AdminLayout";
 
 const queryClient = new QueryClient();
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -31,17 +30,7 @@ const App = () => (
           <Route path="/professionals" element={<ProfessionalsPage />} />
           <Route path="/admin/*" element={<AdminLayout />} />
 
-          {/* ✅ Apenas UMA rota /admin, com proteção */}
-          <Route
-            path="/admin"
-            element={
-              <AdminGuard>
-                <Admin />
-              </AdminGuard>
-            }
-          />
-
-          <Route path="*" element={<NotFound />} />
+          
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
