@@ -1,21 +1,41 @@
 import { X, CalendarDays, Package, User, LogIn, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/components/ui/sonner";
 
 interface MenuSidebarProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const menuItems = [
-  { icon: CalendarDays, label: "Calendário", href: "#" },
-  { icon: Package, label: "Meus Pedidos", href: "#" },
-  { icon: User, label: "Meu Perfil", href: "#" },
-  { icon: LogIn, label: "Entrar", href: "#" },
-  { icon: LogOut, label: "Sair", href: "#" },
-];
-
 const MenuSidebar = ({ isOpen, onClose }: MenuSidebarProps) => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const handleNav = (path: string) => {
+    onClose();
+    navigate(path);
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    onClose();
+    toast.success("Você saiu da sua conta.");
+    navigate("/");
+  };
+
+  const menuItems = [
+    { icon: CalendarDays, label: "Calendário", action: () => handleNav("/agendamento") },
+    { icon: Package, label: "Meus Pedidos", action: () => handleNav("/meus-pedidos") },
+    { icon: User, label: "Meu Perfil", action: () => handleNav("#") },
+    ...(user
+      ? [{ icon: LogOut, label: "Sair", action: handleLogout }]
+      : [{ icon: LogIn, label: "Entrar", action: () => handleNav("/auth") }]),
+  ];
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -42,16 +62,21 @@ const MenuSidebar = ({ isOpen, onClose }: MenuSidebarProps) => {
             </div>
             <nav className="flex-1 p-4 space-y-1">
               {menuItems.map((item) => (
-                <a
+                <button
                   key={item.label}
-                  href={item.href}
-                  className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-body font-medium text-foreground transition-colors hover:bg-muted"
+                  onClick={item.action}
+                  className="flex w-full items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-muted"
                 >
                   <item.icon className="h-5 w-5 text-primary" />
                   {item.label}
-                </a>
+                </button>
               ))}
             </nav>
+            {user && (
+              <div className="border-t border-border px-4 py-3 text-xs text-muted-foreground truncate">
+                {user.email}
+              </div>
+            )}
             <div className="border-t border-border p-4 text-center text-xs text-muted-foreground">
               Cura & Cuidado © 2026
             </div>
