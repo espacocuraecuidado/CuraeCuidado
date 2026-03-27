@@ -143,14 +143,7 @@ const Index = () => {
         )}
       </CarouselSection>
 
-      <div className="bg-lavender-light/50">
-        <CarouselSection title={categoryNames.professionals}>
-          {professionalAds.map((ad) => (
-            <ProfessionalCard key={ad.id} ad={ad} />
-          ))}
-        </CarouselSection>
-      </div>
-
+      <ProfessionalsCarousel />
       <Footer />
       <WhatsAppButton />
 
