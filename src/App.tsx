@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound.tsx";
 import AdminGuard from "@/components/AdminGuard";
 import Profile from "./pages/Profile.tsx";
 import ProfessionalsPage from "./pages/Professionals";
+import AdminLayout from "./layouts/AdminLayout";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/meus-pedidos" element={<MyOrders />} />
           <Route path="/perfil" element={<Profile />} />
           <Route path="/professionals" element={<ProfessionalsPage />} />
+          <Route path="/admin/*" element={<AdminLayout />} />
 
           {/* ✅ Apenas UMA rota /admin, com proteção */}
           <Route
