@@ -32,7 +32,7 @@ const ProfessionalCard = ({ ad }: { ad: ProfessionalAd }) => {
           </div>
           <p className="text-xs font-semibold text-primary">{ad.specialty}</p>
           <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
-            {ad.description}
+            {ad.bio || ad.description}
           </p>
         </div>
       </div>
