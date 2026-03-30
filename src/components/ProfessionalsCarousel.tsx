@@ -18,7 +18,7 @@ export default function ProfessionalsCarousel() {
     supabase
       .from("professionals")
       .select("id, name, specialty, bio")
-      .eq("isactive", true)
+      .eq("is_active", true)
       .order("name")
       .then(({ data }) => setProfessionals(data ?? []));
   }, []);
