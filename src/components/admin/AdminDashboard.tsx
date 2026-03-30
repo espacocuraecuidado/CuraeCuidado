@@ -1,4 +1,4 @@
-import { useAdminGuard } from "@/hooks/useAdminGuard";import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Package, ShoppingBag, Users, DollarSign, TrendingUp, AlertTriangle } from "lucide-react";
@@ -10,7 +10,6 @@ import {
 const COLORS = ["hsl(340,82%,52%)", "hsl(280,60%,65%)", "hsl(15,80%,60%)", "hsl(25,90%,75%)"];
 
 const AdminDashboard = () => {
-  const allowed = useAdminGuard();  if (!allowed) return null;
   const [stats, setStats] = useState({
     totalProducts: 0,
     totalOrders: 0,

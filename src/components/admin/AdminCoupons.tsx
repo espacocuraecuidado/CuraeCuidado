@@ -1,4 +1,4 @@
-import { useAdminGuard } from "@/hooks/useAdminGuard";import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,7 +19,6 @@ type Coupon = {
 };
 
 const AdminCoupons = () => {
-  const allowed = useAdminGuard();  if (!allowed) return null;
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [form, setForm] = useState({ code: "", discount_percent: 10, min_products: 1, is_active: true });

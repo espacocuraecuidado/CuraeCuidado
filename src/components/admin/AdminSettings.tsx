@@ -1,4 +1,4 @@
-import { useAdminGuard } from "@/hooks/useAdminGuard";import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,7 +8,6 @@ import { MessageSquare, QrCode, Bitcoin, Settings, Percent } from "lucide-react"
 import { toast } from "sonner";
 
 const AdminSettings = () => {
-  const allowed = useAdminGuard();  if (!allowed) return null;
   const [settings, setSettings] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
 

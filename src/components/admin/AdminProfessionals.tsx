@@ -1,4 +1,4 @@
-import { useAdminGuard } from "@/hooks/useAdminGuard";import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,7 +31,6 @@ const emptyForm = {
 };
 
 const AdminProfessionals = () => {
-  const allowed = useAdminGuard();  if (!allowed) return null;
   const [pros, setPros] = useState<Professional[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Professional | null>(null);
