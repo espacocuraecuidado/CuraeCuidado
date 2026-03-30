@@ -10,9 +10,9 @@ export function useAdminGuard() {
     supabase.auth.getUser().then(async ({ data: { user } }) => {
       if (!user) return navigate("/login");
       const { data } = await supabase
-        .from("userroles")
+        .from("user_roles")
         .select("role")
-        .eq("userid", user.id)
+        .eq("user_id", user.id)
         .single();
       if (data?.role === "admin" || data?.role === "manager") {
         setAllowed(true);
