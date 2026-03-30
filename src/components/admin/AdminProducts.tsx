@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useAdminGuard } from "@/hooks/useAdminGuard";import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,6 +34,7 @@ const emptyProduct = {
 };
 
 const AdminProducts = () => {
+  const allowed = useAdminGuard();  if (!allowed) return null;
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);

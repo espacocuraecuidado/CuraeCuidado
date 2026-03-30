@@ -1,4 +1,4 @@
-// Dados reais OU teste (últimos 6 meses)
+import { useAdminGuard } from "@/hooks/useAdminGuard";// Dados reais OU teste (últimos 6 meses)
 const now = new Date();
 const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 5, 1);
 

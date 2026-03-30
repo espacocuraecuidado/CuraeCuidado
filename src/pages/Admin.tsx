@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useAdminGuard } from "@/hooks/useAdminGuard";import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AdminDashboard from "@/components/admin/AdminDashboard";
@@ -23,7 +23,8 @@ import {
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-const Admin = () => {
+const Admin = () => {\
+  const allowed = useAdminGuard();  if (!allowed) return null;
   const { user, loading, isAdmin } = useAuth();
 
   if (loading) {

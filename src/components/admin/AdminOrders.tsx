@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useAdminGuard } from "@/hooks/useAdminGuard";import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -35,6 +35,7 @@ const statusColors: Record<string, string> = {
 };
 
 const AdminOrders = () => {
+  const allowed = useAdminGuard();  if (!allowed) return null;
   const [orders, setOrders] = useState<Order[]>([]);
   const [editing, setEditing] = useState<Order | null>(null);
   const [form, setForm] = useState({ status: "", payment_status: "", tracking_code: "", tracking_status: "" });

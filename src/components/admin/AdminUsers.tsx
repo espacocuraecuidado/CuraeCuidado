@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useAdminGuard } from "@/hooks/useAdminGuard";import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -26,6 +26,7 @@ type UserRole = {
 };
 
 const AdminUsers = () => {
+  const allowed = useAdminGuard();  if (!allowed) return null;
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [roles, setRoles] = useState<UserRole[]>([]);
   const [editingUser, setEditingUser] = useState<Profile | null>(null);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useAdminGuard } from "@/hooks/useAdminGuard";import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,7 +21,8 @@ type ProductReview = {
   product_name?: string;
 };
 
-const AdminProductReviews = () => {
+const AdminProductReviews = () => {\
+  const allowed = useAdminGuard();  if (!allowed) return null;
   const [reviews, setReviews] = useState<ProductReview[]>([]);
   const [loading, setLoading] = useState(true);
   const [showApproved, setShowApproved] = useState(false);
