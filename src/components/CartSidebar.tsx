@@ -119,13 +119,30 @@ const CartSidebar = ({
       .from("order_items")
       .insert(orderItems);
 
-    setCheckoutLoading(false);
-
     if (itemsError) {
       toast.error("Erro ao salvar itens do pedido.");
+      setCheckoutLoading(false);
       return;
     }
 
+    // Decrementar estoque atomicamente via RPC
+    const stockErrors: string[] = [];
+    for (const item of grouped) {
+      const { error: stockError } = await supabase.rpc("decrement_stock", {
+        product_id: item.product.id,
+        qty: item.quantity,
+      });
+      if (stockError) stockErrors.push(item.product.name);
+    }
+
+    if (stockErrors.length > 0) {
+      toast.error(`Estoque insuficiente: ${stockErrors.join(", ")}`);
+      await supabase.from("orders").delete().eq("id", order.id);
+      setCheckoutLoading(false);
+      return;
+    }
+
+    setCheckoutLoading(false);
     toast.success("Pedido criado com sucesso! 🎉");
     onClearCart();
     onClose();
