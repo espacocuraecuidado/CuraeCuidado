@@ -5,25 +5,29 @@ import type { User } from "@supabase/supabase-js";
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [role, setRole] = useState<string>("client");
+
+  const isAdmin = role === "admin" || role === "manager";
+  const isSeller = role === "seller" || isAdmin;
+  const isProfessional = role === "professional" || isAdmin;
+
+  const checkRole = async (userId: string) => {
+    const { data } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", userId)
+      .single();
+    setRole(data?.role ?? "client");
+  };
 
   useEffect(() => {
-    const checkRole = async (userId: string) => {
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", userId)
-        .single();
-      setIsAdmin(data?.role === "admin" || data?.role === "manager");
-    };
-
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
         setUser(session?.user ?? null);
         if (session?.user) {
           await checkRole(session.user.id);
         } else {
-          setIsAdmin(false);
+          setRole("client");
         }
         setLoading(false);
       }
@@ -40,5 +44,5 @@ export function useAuth() {
     return () => subscription.unsubscribe();
   }, []);
 
-  return { user, loading, isAdmin };
+  return { user, loading, isAdmin, isSeller, isProfessional, role };
 }
